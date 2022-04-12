@@ -203,9 +203,9 @@ MonoBehaviour:
   _cannonBallPrefab: {fileID: 136607716582031779, guid: d5b917aba052ae04dac5ad521de086e9, type: 3}
   _firePoint: {fileID: 298701802}
   _force: 2
-  vSpeed: 2
-  amplitude: 3
-  vDir: 1
+  vSpeed: 0
+  amplitude: 0
+  vDir: 0
 --- !u!1 &599483380
 GameObject:
   m_ObjectHideFlags: 0
