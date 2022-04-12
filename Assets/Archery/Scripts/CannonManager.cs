@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonManager : MonoBehaviour
@@ -15,11 +13,19 @@ public class CannonManager : MonoBehaviour
     private Camera _cam;
     private bool _pressingMouse = false;
 
+    [Header("Movement")]
+    private Vector2 _initialPos;
+    [SerializeField] private float vSpeed = 4f;
+    [SerializeField] private float amplitude = 4f;
+    [SerializeField] private int vDir = 1;
+
     private void Start()
     {
         _cam = Camera.main;
         _lr.positionCount = _trajectoryPoints;
         _transform = GetComponent<Transform>();
+
+        _initialPos = _transform.position;
     }
 
     private void Update()
@@ -50,6 +56,8 @@ public class CannonManager : MonoBehaviour
 
             UpdateLineRenderer();
         }
+
+        transform.position = new Vector2(_initialPos.x, _initialPos.y + Mathf.Sin(Time.time * vSpeed * vDir) * amplitude);
     }
 
     private void Fire()
