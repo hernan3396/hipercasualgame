@@ -4,20 +4,15 @@ using System.Collections;
 abstract public class Entity : MonoBehaviour
 {
     #region Parameters
+    protected float _inmunityTime;
+    protected int _maxHealth;
     [SerializeField] protected int _currentHealth;
-    [SerializeField] protected int _maxHealth;
-    [SerializeField] protected float _inmunityTime;
-    [SerializeField] protected int _acceleration;
-    [SerializeField] protected int _speed;
     protected bool _isInmune = false;
     #endregion
 
-    virtual protected void Awake()
-    {
-        _currentHealth = _maxHealth;
-    }
+    // protected abstract void Test();
 
-    virtual public void TakeDamage(int value)
+    public virtual void TakeDamage(int value)
     {
         if (_isInmune) return;
         _isInmune = true;
@@ -33,13 +28,13 @@ abstract public class Entity : MonoBehaviour
         StartCoroutine("ResetInmunity");
     }
 
-    virtual protected IEnumerator ResetInmunity()
+    protected virtual IEnumerator ResetInmunity()
     {
         yield return new WaitForSeconds(_inmunityTime);
         _isInmune = false;
     }
 
-    virtual protected void Death()
+    protected virtual void Death()
     {
         gameObject.SetActive(false);
     }

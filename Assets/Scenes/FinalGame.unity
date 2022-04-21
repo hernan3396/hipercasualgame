@@ -387,10 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealth: 0
-  _maxHealth: 2
-  _inmunityTime: 1
-  _acceleration: 8
-  _speed: 12
+  _enemyData: {fileID: 11400000, guid: e8de80f31b247cc4ea94b83f9803d126, type: 2}
 --- !u!1 &682661947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565253724}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e95e9827450d50641b69a3d31257624d, type: 3}
   m_Name: 
