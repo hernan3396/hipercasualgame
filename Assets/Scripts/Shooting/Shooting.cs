@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
+    //TODO: Pasar el daño de la bala a algun lado
     #region Components
     private BulletPoolManager _bulletPoolManager;
     private Transform _transform;
