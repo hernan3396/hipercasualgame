@@ -24,8 +24,15 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (!other.gameObject.CompareTag("Enemy")) return;
+        if (other.gameObject.CompareTag("Player")) return;
 
-        other.gameObject.GetComponent<Enemy>().TakeDamage(1);
+        CancelInvoke("DisableBullet");
+
+        if (other.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            enemy.TakeDamage(1);
+        }
+
+        DisableBullet();
     }
 }
