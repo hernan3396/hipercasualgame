@@ -21,4 +21,11 @@ public class Bullet : MonoBehaviour
         _rb.velocity = Vector3.zero;
         gameObject.SetActive(false);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (!other.gameObject.CompareTag("Enemy")) return;
+
+        other.gameObject.GetComponent<Enemy>().TakeDamage(1);
+    }
 }
