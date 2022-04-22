@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+    }
+
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene("FinalGame");
     }
 
     public static GameManager GetInstance

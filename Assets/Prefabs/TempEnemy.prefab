@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5601134754866425175}
   - component: {fileID: 147034480330044675}
-  - component: {fileID: -8186277356061342088}
   - component: {fileID: 2071880719997011597}
+  - component: {fileID: 348897705998569997}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: TempEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5601134754866425174}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Speed: 12
   m_Acceleration: 8
   avoidancePriority: 50
@@ -57,18 +57,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-8186277356061342088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5601134754866425174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d29f13b3940de439f7ecc709ffb15c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2071880719997011597
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82,6 +70,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 2.5, z: 2.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &348897705998569997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601134754866425174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98cc65f49ae0140489b1b45da8d1382b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 100
+  _maxHealth: 3
 --- !u!1001 &8783665195953635374
 PrefabInstance:
   m_ObjectHideFlags: 0
