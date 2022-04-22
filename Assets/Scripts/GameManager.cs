@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BulletPoolManager _bulletPoolManager;
     [SerializeField] private EnemyPoolManager _enemyPoolManager;
     #endregion
+    [SerializeField] private UIController _uiController;
     [SerializeField] private Transform _playerPos;
     private Camera _camera;
 
@@ -57,5 +58,10 @@ public class GameManager : MonoBehaviour
     public Transform GetPlayerPosition
     {
         get { return _playerPos; }
+    }
+
+    public UIController GetUIController
+    {
+        get { return _uiController; }
     }
 }
