@@ -10,7 +10,7 @@ abstract public class Entity : MonoBehaviour
     protected int _maxHealth;
     #endregion
 
-    public virtual void TakeDamage(int value)
+    public virtual void TakeDamage(int value, int knockback)
     {
         if (_isInmune) return;
         _isInmune = true;

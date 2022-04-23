@@ -16,4 +16,4 @@ MonoBehaviour:
   DeathTime: 0.1
   ScoreValue: 100
   MaxHealth: 2
-  Speed: 5
+  Speed: 8

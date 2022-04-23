@@ -14,6 +14,7 @@ public class SimpleEnemyDamageBehaviour : StateMachineBehaviour
     {
         if (_isSetted) return;
         _isSetted = true;
+
         _enemy = animator.gameObject.GetComponent<Enemy>();
 
         _inmunityTime = _enemy.GetInmunityTime;

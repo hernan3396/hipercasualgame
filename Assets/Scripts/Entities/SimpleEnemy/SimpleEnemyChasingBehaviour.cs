@@ -31,5 +31,6 @@ public class SimpleEnemyChasingBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _transform.position = Vector3.MoveTowards(_transform.position, _playerPos.position, Time.deltaTime * _speed);
+        _transform.LookAt(_playerPos);
     }
 }

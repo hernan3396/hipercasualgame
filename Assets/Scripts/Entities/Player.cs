@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    public void TestCol()
+    {
+        Debug.Log("Choco");
+    }
+
     protected override void StartDeath()
     {
         throw new System.NotImplementedException();

@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class Enemy : Entity
+public abstract class Enemy : Entity
 {
     #region Components
     protected UIController _uiController;
     protected Animator _animator;
+    protected Rigidbody _rb;
     #endregion
 
     #region Parameters
@@ -26,15 +27,17 @@ public class Enemy : Entity
         _speed = _enemyData.Speed;
 
         _animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
+        _rb.velocity = Vector3.zero;
 
         _uiController = GameManager.GetInstance.GetUIController;
         _playerPos = GameManager.GetInstance.GetPlayerPosition;
     }
 
-    public override void TakeDamage(int value)
+    public override void TakeDamage(int value, int knockback)
     {
         if (_isInmune) return; // esta en base, pero por lo visto es necesario aca tambien (?)
-        base.TakeDamage(value);
+        base.TakeDamage(value, knockback);
     }
 
     protected override void StartDeath()
@@ -44,10 +47,20 @@ public class Enemy : Entity
 
     public override void Death()
     {
+        _uiController.AddScore(_scoreValue);
+        _rb.velocity = Vector3.zero;
         _currentHealth = _maxHealth;
         _isInmune = false;
-        _uiController.AddScore(_scoreValue);
         gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<Player>().TestCol();
+            gameObject.SetActive(false);
+        }
     }
 
     public Transform TargetPos
