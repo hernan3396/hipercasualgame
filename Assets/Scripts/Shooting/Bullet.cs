@@ -28,15 +28,11 @@ public class Bullet : MonoBehaviour
 
         CancelInvoke("DisableBullet");
 
-        // if (other.gameObject.TryGetComponent(out Enemy enemy))
-        // {
-        //     enemy.TakeDamage(1);
-        // }
-
-        // esto es temporal
-
-        if (other.gameObject.TryGetComponent(out TempEnemy enemy))
+        if (other.gameObject.TryGetComponent(out Enemy enemy))
+        {
             enemy.TakeDamage(1);
+        }
+
 
         DisableBullet();
     }
