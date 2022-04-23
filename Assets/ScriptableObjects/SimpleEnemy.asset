@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SimpleEnemy
   m_EditorClassIdentifier: 
   InmunityTime: 0.5
-  Acceleration: 8
+  DeathTime: 0.5
   MaxHealth: 2
-  Speed: 12
+  Speed: 5

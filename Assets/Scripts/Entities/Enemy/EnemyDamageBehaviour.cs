@@ -1,35 +1,34 @@
 using UnityEngine;
 
-public class EnemyChasingBehaviour : StateMachineBehaviour
+public class EnemyDamageBehaviour : StateMachineBehaviour
 {
-    #region Positions
-    private Transform _playerPos;
-    private Transform _transform;
-    #endregion
-
     private bool _isSetted = false;
 
     #region Parameters
+    private float _inmunityTimer;
+    private float _inmunityTime;
     private Enemy _enemy;
-    private int _speed;
     #endregion
-
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_isSetted) return; // stops re-setting same parameters everytime it starts this state
+        if (_isSetted) return;
         _isSetted = true;
-
-        _transform = animator.transform;
         _enemy = animator.gameObject.GetComponent<Enemy>();
 
-        _playerPos = _enemy.TargetPos;
-        _speed = _enemy.GetSpeed;
+        _inmunityTime = _enemy.GetInmunityTime;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _transform.position = Vector3.MoveTowards(_transform.position, _playerPos.position, Time.deltaTime * _speed);
+        _inmunityTimer += Time.deltaTime;
+
+        if (_inmunityTimer >= _inmunityTime)
+        {
+            _inmunityTimer = 0; // resets timer
+            _enemy.GetIsInmune = false; // can take damage again
+            animator.SetBool("isDamaged", false);
+        }
     }
 }

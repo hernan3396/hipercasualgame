@@ -4,35 +4,42 @@ public class Enemy : Entity
 {
     [SerializeField] protected EnemyData _enemyData;
     protected Transform _playerPos;
+    protected float _deathTime;
     protected int _speed;
 
     private Animator _animator;
 
-    //TODO: algunas de estas cosas pasarlas a simple enemy
-    //TODO: ordenar esto
-    protected void Start()
+    private void Awake()
     {
         // seteas los parametros
+        _inmunityTime = _enemyData.InmunityTime;
+        _deathTime = _enemyData.DeathTime;
         _maxHealth = _enemyData.MaxHealth;
         _currentHealth = _maxHealth;
         _speed = _enemyData.Speed;
 
-        _playerPos = GameManager.GetInstance.GetPlayerPosition;
-
         _animator = GetComponent<Animator>();
+
+        _playerPos = GameManager.GetInstance.GetPlayerPosition;
     }
 
     public override void TakeDamage(int value)
     {
-        _animator.SetBool("isDamaged", true);
+        if (_isInmune) return; // esta en base, pero por lo visto es necesario aca tambien (?)
         base.TakeDamage(value);
+        _animator.SetBool("isDamaged", true);
     }
 
-    protected override void Death()
+    protected override void StartDeath()
+    {
+        _animator.SetBool("isDead", true);
+    }
+
+    public override void Death()
     {
         _currentHealth = _maxHealth;
         _isInmune = false;
-        base.Death();
+        gameObject.SetActive(false);
     }
 
     public Transform TargetPos
@@ -43,5 +50,15 @@ public class Enemy : Entity
     public int GetSpeed
     {
         get { return _speed; }
+    }
+
+    public float GetInmunityTime
+    {
+        get { return _inmunityTime; }
+    }
+
+    public float GetDeathTime
+    {
+        get { return _deathTime; }
     }
 }

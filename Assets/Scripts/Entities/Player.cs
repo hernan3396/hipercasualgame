@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    protected override void Death()
+    protected override void StartDeath()
     {
-        base.Death();
-        Debug.Log("Perdiste");
+        throw new System.NotImplementedException();
+    }
+
+    public override void Death()
+    {
+        throw new System.NotImplementedException();
     }
 }
