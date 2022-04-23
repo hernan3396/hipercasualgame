@@ -7,7 +7,7 @@ public class Enemy : Entity
     protected float _deathTime;
     protected int _speed;
 
-    private Animator _animator;
+    protected Animator _animator;
 
     private void Awake()
     {
@@ -27,7 +27,6 @@ public class Enemy : Entity
     {
         if (_isInmune) return; // esta en base, pero por lo visto es necesario aca tambien (?)
         base.TakeDamage(value);
-        _animator.SetBool("isDamaged", true);
     }
 
     protected override void StartDeath()

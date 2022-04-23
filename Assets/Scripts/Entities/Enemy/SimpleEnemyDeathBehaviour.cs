@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyDeathBehaviour : StateMachineBehaviour
+public class SimpleEnemyDeathBehaviour : StateMachineBehaviour
 {
     private bool _isSetted = false;
 

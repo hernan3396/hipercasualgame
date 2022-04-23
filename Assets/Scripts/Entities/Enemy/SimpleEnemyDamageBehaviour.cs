@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyDamageBehaviour : StateMachineBehaviour
+public class SimpleEnemyDamageBehaviour : StateMachineBehaviour
 {
     private bool _isSetted = false;
 

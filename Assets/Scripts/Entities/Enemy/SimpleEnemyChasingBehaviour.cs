@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyChasingBehaviour : StateMachineBehaviour
+public class SimpleEnemyChasingBehaviour : StateMachineBehaviour
 {
     #region Positions
     private Transform _playerPos;
