@@ -3,14 +3,15 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     #region Components
-    private SimpleEnemyPoolManager _simpleEnemyPoolManager;
+    private PoolManager _simpleEnemyPoolManager;
+    private PoolManager _heavyEnemyPoolManager;
     private Transform _transform;
     #endregion
 
     #region SpawnParameters
     [Header("Spawn Parameters")]
     [SerializeField] private int _spawnDistance = 10;
-    [SerializeField] private float _spawnRate = 1;
+    [SerializeField] private float _simpleEnemySpawnRate = 1;
     #endregion
 
     private void Start()
@@ -18,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         _simpleEnemyPoolManager = GameManager.GetInstance.GetSimpleEnemyPoolManager;
         _transform = GetComponent<Transform>();
 
-        InvokeRepeating("SpawnSimpleEnemy", _spawnRate, _spawnRate);
+        InvokeRepeating("SpawnSimpleEnemy", _simpleEnemySpawnRate, _simpleEnemySpawnRate);
     }
 
     private void SpawnSimpleEnemy()
