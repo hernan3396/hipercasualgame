@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InmunityTime: 0.2
   DeathTime: 0.1
+  ScoreValue: 100
   MaxHealth: 2
   Speed: 5

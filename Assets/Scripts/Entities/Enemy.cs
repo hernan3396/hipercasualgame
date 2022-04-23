@@ -2,17 +2,24 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    #region Components
+    protected UIController _uiController;
+    protected Animator _animator;
+    #endregion
+
+    #region Parameters
     [SerializeField] protected EnemyData _enemyData;
     protected Transform _playerPos;
     protected float _deathTime;
+    protected int _scoreValue;
     protected int _speed;
-
-    protected Animator _animator;
+    #endregion
 
     private void Awake()
     {
         // seteas los parametros
         _inmunityTime = _enemyData.InmunityTime;
+        _scoreValue = _enemyData.ScoreValue;
         _deathTime = _enemyData.DeathTime;
         _maxHealth = _enemyData.MaxHealth;
         _currentHealth = _maxHealth;
@@ -20,6 +27,7 @@ public class Enemy : Entity
 
         _animator = GetComponent<Animator>();
 
+        _uiController = GameManager.GetInstance.GetUIController;
         _playerPos = GameManager.GetInstance.GetPlayerPosition;
     }
 
@@ -38,6 +46,7 @@ public class Enemy : Entity
     {
         _currentHealth = _maxHealth;
         _isInmune = false;
+        _uiController.AddScore(_scoreValue);
         gameObject.SetActive(false);
     }
 
