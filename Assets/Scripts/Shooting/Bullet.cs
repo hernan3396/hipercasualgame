@@ -2,12 +2,24 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float _duration = 2;
+    #region Components
+    #endregion
+    [SerializeField] private BulletData _bulletData;
     private Rigidbody _rb;
+    #region Parameters
+
+    private int _knockbackForce;
+    private float _duration;
+    private int _damage;
+    #endregion
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _knockbackForce = _bulletData._knockbackForce;
+        _duration = _bulletData._duration;
+        _damage = _bulletData._damage;
     }
 
     void OnEnable()
@@ -30,9 +42,8 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(_damage, _knockbackForce);
         }
-
 
         DisableBullet();
     }
