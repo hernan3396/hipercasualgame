@@ -9,13 +9,13 @@ public class TempEnemy : MonoBehaviour
     private int _currentHealth;
     private Transform _playerPosition;
     private Transform _transform;
-    private NavMeshAgent _agent;
+    // private NavMeshAgent _agent;
     private Rigidbody _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _agent = GetComponent<NavMeshAgent>();
+        // _agent = GetComponent<NavMeshAgent>();
         _transform = GetComponent<Transform>();
 
         _currentHealth = _maxHealth;
@@ -24,9 +24,9 @@ public class TempEnemy : MonoBehaviour
     private void Start()
     {
         _playerPosition = GameManager.GetInstance.GetPlayerPosition;
-        _agent.updateRotation = false;
-        _agent.updateUpAxis = false;
-        _agent.SetDestination(_playerPosition.position);
+        // _agent.updateRotation = false;
+        // _agent.updateUpAxis = false;
+        // _agent.SetDestination(_playerPosition.position);
 
         _uiController = GameManager.GetInstance.GetUIController;
     }
@@ -35,7 +35,7 @@ public class TempEnemy : MonoBehaviour
     {
         _playerPosition = GameManager.GetInstance.GetPlayerPosition;
 
-        _agent.SetDestination(_playerPosition.position);
+        // _agent.SetDestination(_playerPosition.position);
     }
 
     private void Update()
