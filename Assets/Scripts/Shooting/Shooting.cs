@@ -18,7 +18,7 @@ public class Shooting : MonoBehaviour
 
     #region ShootingSetup
     [Header("Shooting Setup")]
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _shootingModel;
     [SerializeField] private Transform _shootingPoint;
     [SerializeField] private int _armLength; // spawns bullet at weapon + arm length
     #endregion
@@ -42,7 +42,6 @@ public class Shooting : MonoBehaviour
 
         if (Physics.Raycast(_mousePos, out RaycastHit hit, Mathf.Infinity, _aimMask))
         {
-            // sirve para rotar a los brazos
             _hitPos = hit;
         }
 
@@ -62,7 +61,8 @@ public class Shooting : MonoBehaviour
         bullet.SetActive(true);
 
         Vector3 shootingDir = (_hitPos.point - _shootingPoint.position).normalized; // calculates shooting direction
-        bullet.transform.position = (_shootingPoint.position + shootingDir) * _armLength; // places bullet at the right place
+        _shootingModel.forward = shootingDir;
+        bullet.transform.position = _shootingPoint.position; // places bullet at the right place
 
         // impulse bullet
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
