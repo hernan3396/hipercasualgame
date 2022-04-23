@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     #region Components
-    private EnemyPoolManager _enemyPoolManager;
+    private SimpleEnemyPoolManager _simpleEnemyPoolManager;
     private Transform _transform;
     #endregion
 
@@ -15,16 +15,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        _enemyPoolManager = GameManager.GetInstance.GetEnemyPoolManager;
+        _simpleEnemyPoolManager = GameManager.GetInstance.GetSimpleEnemyPoolManager;
         _transform = GetComponent<Transform>();
 
-        InvokeRepeating("Spawn", _spawnRate, _spawnRate);
+        InvokeRepeating("SpawnSimpleEnemy", _spawnRate, _spawnRate);
     }
 
-    private void Spawn()
+    private void SpawnSimpleEnemy()
     {
         // temporal code
-        GameObject enemy = _enemyPoolManager.GetPooledObject();
+        GameObject enemy = _simpleEnemyPoolManager.GetPooledObject();
 
         if (!enemy) return;
 

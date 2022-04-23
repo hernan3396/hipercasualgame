@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPoolManager : MonoBehaviour
+public class SimpleEnemyPoolManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _enemiesPool;
     [SerializeField] private GameObject _enemyPrefab;

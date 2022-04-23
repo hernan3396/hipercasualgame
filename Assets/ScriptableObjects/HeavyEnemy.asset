@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 638bb9bf495defb4fbdc5c4642023f14, type: 3}
-  m_Name: SimpleEnemy
+  m_Name: HeavyEnemy
   m_EditorClassIdentifier: 
   InmunityTime: 0.2
   DeathTime: 0.1
-  MaxHealth: 2
-  Speed: 5
+  MaxHealth: 10
+  Speed: 2
