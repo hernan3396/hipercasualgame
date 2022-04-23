@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     public float InmunityTime;
-    public int Acceleration;
     public int MaxHealth;
     public int Speed;
 }

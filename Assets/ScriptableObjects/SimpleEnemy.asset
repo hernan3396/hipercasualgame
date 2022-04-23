@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 638bb9bf495defb4fbdc5c4642023f14, type: 3}
-  m_Name: TestEnemy
+  m_Name: SimpleEnemy
   m_EditorClassIdentifier: 
   InmunityTime: 0.5
   Acceleration: 8
