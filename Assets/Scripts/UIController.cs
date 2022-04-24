@@ -8,50 +8,27 @@ public class UIController : MonoBehaviour
     [SerializeField] private int _pScore = 0;
     [SerializeField] private TextMeshProUGUI _scoreText;
 
-
     [Header("Life")]
     [SerializeField] private GameObject[] _ImagenVida;
+
+    [Header("GameStart")]
+    [SerializeField] private GameObject _titleMenu;
+
+    [Header("GamePause")]
+    [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _pauseBtn;
 
     [Header("GameOver")]
     [SerializeField] private GameObject _panelGameOver;
     [SerializeField] private TextMeshProUGUI _scoreGOText;
-    // Start is called before the first frame update
     void Start()
     {
         _scoreText.text = "Score: " + _pScore;
+
+        GameManager.GetInstance.onGameStart += StartGame;
+        GameManager.GetInstance.onGamePause += PauseGame;
+        GameManager.GetInstance.onGameOver += DeathScreen;
     }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-    //     // _scoreText.text = "Score: " + _pScore;
-    //     if (_pLife > 2)
-    //     {
-    //         _ImagenVida[0].SetActive(true);
-    //         _ImagenVida[1].SetActive(true);
-    //         _ImagenVida[2].SetActive(true);
-    //     }
-    //     else if (_pLife > 1)
-    //     {
-    //         _ImagenVida[0].SetActive(true);
-    //         _ImagenVida[1].SetActive(true);
-    //         _ImagenVida[2].SetActive(false);
-    //     }
-    //     else if (_pLife > 0)
-    //     {
-    //         _ImagenVida[0].SetActive(true);
-    //         _ImagenVida[1].SetActive(false);
-    //         _ImagenVida[2].SetActive(false);
-    //     }
-    //     else
-    //     {
-    //         /*
-    //         _panelGameOver.SetActive(true);
-    //         _scoreGOText.text = "Tu puntaje es de: " + _pScore;
-    //         */
-    //     }
-
-    // }
 
     public void UpdateLifes(int pLife)
     {
@@ -81,9 +58,21 @@ public class UIController : MonoBehaviour
         _scoreText.text = "Score: " + _pScore;
     }
 
-    public void DeathScreen()
+    public void StartGame()
     {
-        _panelGameOver.SetActive(true);
+        _titleMenu.SetActive(false);
+        _pauseBtn.SetActive(true);
+    }
+
+    public void PauseGame(bool value)
+    {
+        _pauseMenu.SetActive(value);
+        _pauseBtn.SetActive(!value);
+    }
+
+    public void DeathScreen(bool value)
+    {
+        _panelGameOver.SetActive(value);
         _scoreGOText.text = "Tu puntaje es de: " + _pScore;
     }
 }
