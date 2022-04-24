@@ -8,6 +8,8 @@ public class Shooting : MonoBehaviour
     private Transform _transform;
     #endregion
 
+    private bool _canShoot = false;
+
     #region Aiming
     [Header("Aiming")]
     [SerializeField] private LayerMask _aimMask;
@@ -34,10 +36,16 @@ public class Shooting : MonoBehaviour
 
         _bulletPoolManager = GameManager.GetInstance.GetBulletPoolManager;
         _cam = GameManager.GetInstance.GetCamera;
+
+        GameManager.GetInstance.onGameStart += OnGameStart;
+        GameManager.GetInstance.onGamePause += OnGamePause;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
 
     private void Update()
     {
+        if (!_canShoot) return;
+
         _mousePos = _cam.ScreenPointToRay(Input.mousePosition); // aims
 
         if (Physics.Raycast(_mousePos, out RaycastHit hit, Mathf.Infinity, _aimMask))
@@ -67,5 +75,27 @@ public class Shooting : MonoBehaviour
         // impulse bullet
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.AddForce(shootingDir * _shootForce, ForceMode.Impulse);
+    }
+
+    private void OnGameStart()
+    {
+        _canShoot = true;
+    }
+
+    private void OnGamePause(bool value)
+    {
+        _canShoot = !value;
+    }
+
+    private void OnGameOver(bool value)
+    {
+        _canShoot = !value;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGameStart -= OnGameStart;
+        GameManager.GetInstance.onGamePause -= OnGamePause;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 }

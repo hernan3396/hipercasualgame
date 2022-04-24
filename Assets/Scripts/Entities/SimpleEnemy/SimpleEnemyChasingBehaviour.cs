@@ -30,6 +30,8 @@ public class SimpleEnemyChasingBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (_enemy.IsEnemyPaused) return;
+
         _transform.position = Vector3.MoveTowards(_transform.position, _playerPos.position, Time.deltaTime * _speed);
         _transform.LookAt(_playerPos);
     }

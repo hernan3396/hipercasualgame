@@ -11,18 +11,24 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Parameters")]
     [SerializeField] private int _spawnDistance = 10;
     [SerializeField] private float _simpleEnemySpawnRate = 1;
+    private bool _isGameOver = false;
+    private bool _gamePaused = false;
     #endregion
 
     private void Start()
     {
         _transform = GetComponent<Transform>();
 
-        InvokeRepeating("SpawnSimpleEnemy", _simpleEnemySpawnRate, _simpleEnemySpawnRate);
+        GameManager.GetInstance.onGameOver += OnGameOver;
+        GameManager.GetInstance.onGamePause += OnGamePause;
+        GameManager.GetInstance.onGameStart += OnGameStart;
     }
 
-    private void SpawnSimpleEnemy()
+    private void SpawnEnemy()
     {
-        // temporal code
+        if (_isGameOver) return;
+        if (_gamePaused) return;
+
         GameObject enemy = _enemyPoolManager.GetPooledObject();
 
         if (!enemy) return;
@@ -34,5 +40,28 @@ public class EnemySpawner : MonoBehaviour
         spawnVector = (spawnVector.normalized * _spawnDistance) + _transform.position;
 
         enemy.transform.position = spawnVector;
+    }
+
+    private void OnGameStart()
+    {
+        InvokeRepeating("SpawnEnemy", _simpleEnemySpawnRate, _simpleEnemySpawnRate);
+    }
+
+    private void OnGamePause(bool value)
+    {
+        _gamePaused = value;
+    }
+
+    private void OnGameOver(bool value)
+    {
+        _isGameOver = value;
+        CancelInvoke("SpawnEnemy");
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGameStart -= OnGameStart;
+        GameManager.GetInstance.onGamePause -= OnGamePause;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 }

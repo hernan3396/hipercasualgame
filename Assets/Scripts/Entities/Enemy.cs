@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator), typeof(Rigidbody))]
+
 public abstract class Enemy : Entity
 {
     #region Components
@@ -7,6 +9,9 @@ public abstract class Enemy : Entity
     protected Animator _animator;
     protected Rigidbody _rb;
     #endregion
+
+    private bool _isGameOver = false;
+    private bool _gamePaused = false;
 
     #region Parameters
     [SerializeField] protected EnemyData _enemyData;
@@ -27,6 +32,12 @@ public abstract class Enemy : Entity
 
         _uiController = GameManager.GetInstance.GetUIController;
         _playerPos = GameManager.GetInstance.GetPlayerPosition;
+    }
+
+    private void Start()
+    {
+        GameManager.GetInstance.onGamePause += OnGamePause;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
 
     private void SetParameters()
@@ -65,9 +76,27 @@ public abstract class Enemy : Entity
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().TakeDamage(1, 0);
+            other.GetComponent<Player>().TakeDamage(_atkDamage, 0);
+
+            if (_isGameOver) return; // crea un efecto que los enemigos te pisotean
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnGamePause(bool value)
+    {
+        _gamePaused = value;
+    }
+
+    private void OnGameOver(bool value)
+    {
+        _isGameOver = value;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnGamePause;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 
     public Transform TargetPos
@@ -88,5 +117,10 @@ public abstract class Enemy : Entity
     public float GetDeathTime
     {
         get { return _deathTime; }
+    }
+
+    public bool IsEnemyPaused
+    {
+        get { return _gamePaused; }
     }
 }

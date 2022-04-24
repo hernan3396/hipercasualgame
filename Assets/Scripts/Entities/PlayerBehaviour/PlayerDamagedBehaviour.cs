@@ -1,36 +1,37 @@
 using UnityEngine;
 
-public class SimpleEnemyDamageBehaviour : StateMachineBehaviour
+public class PlayerDamagedBehaviour : StateMachineBehaviour
 {
-    private bool _isSetted = false;
+    private bool _firstTimeSet = false;
 
     #region Parameters
     private float _inmunityTimer;
     private float _inmunityTime;
-    private Enemy _enemy;
+    private Player _player;
     #endregion
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_isSetted) return;
-        _isSetted = true;
+        if (_firstTimeSet) return;
+        _firstTimeSet = true;
 
-        _enemy = animator.gameObject.GetComponent<Enemy>();
+        _player = animator.gameObject.GetComponent<Player>();
 
-        _inmunityTime = _enemy.GetInmunityTime;
+        _inmunityTime = _player.GetInmunityTime;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_enemy.IsEnemyPaused) return;
+        if (_player.IsPlayerPaused) return;
 
         _inmunityTimer += Time.deltaTime;
 
         if (_inmunityTimer >= _inmunityTime)
         {
-            _inmunityTimer = 0; // resets timer
-            _enemy.GetIsInmune = false; // can take damage again
+            _inmunityTimer = 0;
+            _player.IsInmune = false;
             animator.SetBool("isDamaged", false);
         }
     }
