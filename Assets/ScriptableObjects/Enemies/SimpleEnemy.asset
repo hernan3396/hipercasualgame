@@ -16,4 +16,5 @@ MonoBehaviour:
   DeathTime: 0.1
   ScoreValue: 100
   MaxHealth: 2
+  AtkDamage: 1
   Speed: 8
