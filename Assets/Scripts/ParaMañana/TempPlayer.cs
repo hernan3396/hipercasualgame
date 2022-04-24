@@ -36,6 +36,6 @@ public class TempPlayer : MonoBehaviour
     private void Death()
     {
         gameObject.SetActive(false);
-        _uiController.DeathScreen();
+        // _uiController.DeathScreen();
     }
 }
