@@ -13,18 +13,13 @@ public abstract class Enemy : Entity
     protected Transform _playerPos;
     protected float _deathTime;
     protected int _scoreValue;
+    private int _atkDamage;
     protected int _speed;
     #endregion
 
     private void Awake()
     {
-        // seteas los parametros
-        _inmunityTime = _enemyData.InmunityTime;
-        _scoreValue = _enemyData.ScoreValue;
-        _deathTime = _enemyData.DeathTime;
-        _maxHealth = _enemyData.MaxHealth;
-        _currentHealth = _maxHealth;
-        _speed = _enemyData.Speed;
+        SetParameters();
 
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
@@ -32,6 +27,18 @@ public abstract class Enemy : Entity
 
         _uiController = GameManager.GetInstance.GetUIController;
         _playerPos = GameManager.GetInstance.GetPlayerPosition;
+    }
+
+    private void SetParameters()
+    {
+        // seteas los parametros
+        _inmunityTime = _enemyData.InmunityTime;
+        _scoreValue = _enemyData.ScoreValue;
+        _atkDamage = _enemyData.AtkDamage;
+        _deathTime = _enemyData.DeathTime;
+        _maxHealth = _enemyData.MaxHealth;
+        _currentHealth = _maxHealth;
+        _speed = _enemyData.Speed;
     }
 
     public override void TakeDamage(int value, int knockback)
@@ -58,7 +65,7 @@ public abstract class Enemy : Entity
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().TestCol();
+            other.GetComponent<Player>().TakeDamage(1, 0);
             gameObject.SetActive(false);
         }
     }
