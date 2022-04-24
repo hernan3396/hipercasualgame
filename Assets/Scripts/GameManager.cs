@@ -10,9 +10,30 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PoolManager _simpleEnemyPoolManager;
     [SerializeField] private PoolManager _bulletPoolManager;
     #endregion
+
+    #region Components
+    [Header("Components")]
     [SerializeField] private UIController _uiController;
     [SerializeField] private Transform _playerPos;
     private Camera _camera;
+    #endregion
+
+    #region GameStart
+    public delegate void OnGameStart();
+    public event OnGameStart onGameStart;
+    #endregion
+
+    #region GamePause
+    public delegate void OnGamePause(bool isGamePaused);
+    public event OnGamePause onGamePause;
+    private bool _isGamePaused = false;
+    #endregion
+
+    #region GameOver
+    public delegate void OnGameOver(bool isGameOver);
+    public event OnGameOver onGameOver;
+    private bool _isGameOver = false;
+    #endregion
 
     private void Awake()
     {
@@ -36,9 +57,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        if (onGameStart != null)
+            onGameStart();
+    }
+
+    public void GamePause()
+    {
+        _isGamePaused = !_isGamePaused;
+
+        if (onGamePause != null)
+            onGamePause(_isGamePaused);
+    }
+
     public void ReloadGame()
     {
         SceneManager.LoadScene("FinalGame");
+    }
+
+    public void GameOver()
+    {
+        _isGameOver = true;
+
+        if (onGameOver != null)
+            onGameOver(_isGameOver);
     }
 
     public static GameManager GetInstance
