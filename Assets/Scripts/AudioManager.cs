@@ -20,6 +20,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource[] _scoreAS;
     [SerializeField] private AudioClip _scoreClip;
 
+    [Header("UI")]
+    [SerializeField] private AudioSource _uiAS;
+    [SerializeField] private AudioClip _uiClip;
 
 
 
@@ -41,6 +44,7 @@ public class AudioManager : MonoBehaviour
     {
         IniciarMusica();
         IniciarPuntos();
+        IniciarUISounds();
     }
 
     // Update is called once per frame
@@ -65,10 +69,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void ButtonSound()
+    {
+        _uiAS.Play();
+    }
     public void IniciarPuntos()
     {
         _scoreAS[0].clip = _scoreClip;
         _scoreAS[1].clip = _scoreClip;
+    }
+    public void IniciarUISounds()
+    {
+        _uiAS.clip = _uiClip;
     }
     public void IniciarMusica()
     {
