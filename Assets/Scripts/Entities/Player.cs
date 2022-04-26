@@ -6,6 +6,7 @@ public class Player : Entity
     #region Components
     private UIController _uiController;
     private Animator _animator;
+    private AudioManager _aManager;
     #endregion
 
     [SerializeField] private protected PlayerData _playerData;
@@ -29,7 +30,7 @@ public class Player : Entity
     private void Start()
     {
         _uiController = GameManager.GetInstance.GetUIController;
-
+        _aManager = GameManager.GetInstance.GetAudioManager;
         GameManager.GetInstance.onGameOver += OnGameOver;
         GameManager.GetInstance.onGamePause += OnGamePause;
     }
@@ -38,6 +39,7 @@ public class Player : Entity
     {
         if (_isGameOver) return;
         if (_isInmune) return; // esta en base, pero por lo visto es necesario aca tambien (?)
+        _aManager.PlayerHitSound();//sonido golpe player
         base.TakeDamage(value, knockback);
         _uiController.UpdateLifes(_currentHealth);
         _animator.SetBool("isDamaged", true);

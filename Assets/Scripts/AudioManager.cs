@@ -19,6 +19,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _shootClip;
     [SerializeField] private AudioSource[] _scoreAS;
     [SerializeField] private AudioClip _scoreClip;
+    [SerializeField] private AudioSource _playerHitAS;
+    [SerializeField] private AudioClip _playerHitClip;
 
     [Header("UI")]
     [SerializeField] private AudioSource _uiAS;
@@ -47,12 +49,16 @@ public class AudioManager : MonoBehaviour
         IniciarUISounds();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+
+
+
+
+
+    public void PlayerHitSound()
+    {
+        _playerHitAS.Play();
+    }
     public void ScoreSound()
     {
         if(!_scoreAS[0].isPlaying)
@@ -68,7 +74,10 @@ public class AudioManager : MonoBehaviour
             _scoreAS[0].Play();
         }
     }
-
+    public void IniciarPlayerHitSound()
+    {
+        _playerHitAS.clip = _playerHitClip;
+    }
     public void ButtonSound()
     {
         _uiAS.Play();
