@@ -7,12 +7,14 @@ public class ScoreObject : MonoBehaviour
 
     protected UIController _uiController;
     protected Transform _playerPos;
+    protected AudioManager _aManager;
 
     private bool _isPaused = false;
 
 
     void Start()
     {
+        _aManager = GameManager.GetInstance.GetAudioManager;
         _uiController = GameManager.GetInstance.GetUIController;
         _playerPos = GameManager.GetInstance.GetPlayerPosition;
         GameManager.GetInstance.onGamePause += OnPause;
@@ -32,7 +34,7 @@ public class ScoreObject : MonoBehaviour
         {
             _uiController.AddScore(_valor);
             Destroy(gameObject);
-
+            _aManager.ScoreSound();
         }
     }
 

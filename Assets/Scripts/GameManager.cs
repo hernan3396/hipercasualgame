@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     #region Components
     [Header("Components")]
+    [SerializeField] private AudioManager _audioManager;
     [SerializeField] private UIController _uiController;
     [SerializeField] private Transform _playerPos;
     private Camera _camera;
@@ -117,5 +118,10 @@ public class GameManager : MonoBehaviour
     public UIController GetUIController
     {
         get { return _uiController; }
+    }
+
+    public AudioManager GetAudioManager
+    {
+        get { return _audioManager; }
     }
 }
