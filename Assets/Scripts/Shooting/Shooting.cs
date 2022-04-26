@@ -6,6 +6,7 @@ public class Shooting : MonoBehaviour
     #region Components
     private PoolManager _bulletPoolManager;
     private Transform _transform;
+    protected AudioManager _aManager;
     #endregion
 
     private bool _canShoot = false;
@@ -40,6 +41,7 @@ public class Shooting : MonoBehaviour
         GameManager.GetInstance.onGameStart += OnGameStart;
         GameManager.GetInstance.onGamePause += OnGamePause;
         GameManager.GetInstance.onGameOver += OnGameOver;
+        _aManager = GameManager.GetInstance.GetAudioManager;
     }
 
     private void Update()
@@ -67,6 +69,7 @@ public class Shooting : MonoBehaviour
         if (!bullet) return;
 
         bullet.SetActive(true);
+        _aManager.LaserSound(); //sonido laser
 
         Vector3 shootingDir = (_hitPos.point - _shootingPoint.position).normalized; // calculates shooting direction
         _shootingModel.forward = shootingDir;

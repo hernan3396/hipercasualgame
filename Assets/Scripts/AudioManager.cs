@@ -78,6 +78,46 @@ public class AudioManager : MonoBehaviour
         _scoreAS[0].clip = _scoreClip;
         _scoreAS[1].clip = _scoreClip;
     }
+
+    public void LaserSound()
+    {
+        if (!_shootAS[0].isPlaying)
+        {
+            _shootAS[0].Play();
+        }
+        else if (!_shootAS[1].isPlaying)
+        {
+            _shootAS[1].Play();
+        }
+        else if (!_shootAS[2].isPlaying)
+        {
+            _shootAS[2].Play();
+        }
+        else if (!_shootAS[2].isPlaying)
+        {
+            _shootAS[2].Play();
+        }
+        else if (!_shootAS[3].isPlaying)
+        {
+            _shootAS[3].Play();
+        }
+        else if (!_shootAS[4].isPlaying)
+        {
+            _shootAS[4].Play();
+        }
+        else
+        {
+            _shootAS[0].Play();
+        }
+    }
+    public void IniciarLaser()
+    {
+        _shootAS[0].clip = _shootClip;
+        _shootAS[1].clip = _shootClip;
+        _shootAS[2].clip = _shootClip;
+        _shootAS[3].clip = _shootClip;
+        _shootAS[4].clip = _shootClip;
+    }
     public void IniciarUISounds()
     {
         _uiAS.clip = _uiClip;
