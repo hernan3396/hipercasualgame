@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealth: 0
+  _scoreObject: {fileID: 4388673677776098355, guid: 333b791a5268acc47940f7b070bf5afe, type: 3}
   _enemyData: {fileID: 11400000, guid: 7c549f5b41cf4bc42bc39e3b5415e9ce, type: 2}
 --- !u!1001 &8783665195953635374
 PrefabInstance:
