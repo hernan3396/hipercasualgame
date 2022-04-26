@@ -84,6 +84,11 @@ public class GameManager : MonoBehaviour
             onGameOver(_isGameOver);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public static GameManager GetInstance
     {
         get { return _instance; }
