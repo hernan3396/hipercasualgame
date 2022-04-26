@@ -14,10 +14,10 @@ public abstract class Enemy : Entity
     private bool _gamePaused = false;
 
     #region Parameters
+    [SerializeField] protected GameObject _scoreObject;
     [SerializeField] protected EnemyData _enemyData;
     protected Transform _playerPos;
     protected float _deathTime;
-    protected int _scoreValue;
     private int _atkDamage;
     protected int _speed;
     #endregion
@@ -44,7 +44,6 @@ public abstract class Enemy : Entity
     {
         // seteas los parametros
         _inmunityTime = _enemyData.InmunityTime;
-        _scoreValue = _enemyData.ScoreValue;
         _atkDamage = _enemyData.AtkDamage;
         _deathTime = _enemyData.DeathTime;
         _maxHealth = _enemyData.MaxHealth;
@@ -65,7 +64,7 @@ public abstract class Enemy : Entity
 
     public override void Death()
     {
-        _uiController.AddScore(_scoreValue);
+        Instantiate(_scoreObject, transform.position, Quaternion.identity);
         _rb.velocity = Vector3.zero;
         _currentHealth = _maxHealth;
         _isInmune = false;
