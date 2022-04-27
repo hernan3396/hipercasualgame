@@ -11,6 +11,8 @@ abstract public class Entity : MonoBehaviour
 
     public virtual void TakeDamage(int value, int knockback)
     {
+        // luego me di cuenta que el knockback no era necesario en todos
+        // pero no me dio tiempo de sacarlo
         if (_isInmune) return;
         _isInmune = true;
 
