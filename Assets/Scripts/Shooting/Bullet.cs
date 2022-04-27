@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     #region Components
     #endregion
-    [SerializeField] private BulletData _bulletData;
+    // [SerializeField] private BulletData _bulletData;
     private Rigidbody _rb;
     #region Parameters
 
@@ -17,9 +17,9 @@ public class Bullet : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
 
-        _knockbackForce = _bulletData._knockbackForce;
-        _duration = _bulletData._duration;
-        _damage = _bulletData._damage;
+        // _knockbackForce = _bulletData._knockbackForce;
+        // _duration = _bulletData._duration;
+        // _damage = _bulletData._damage;
     }
 
     void OnEnable()
