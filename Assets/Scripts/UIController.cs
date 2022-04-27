@@ -32,21 +32,21 @@ public class UIController : MonoBehaviour
 
     public void UpdateLifes(int pLife)
     {
-        if (pLife > 2)
-        {
-            _ImagenVida[0].SetActive(true);
-            _ImagenVida[1].SetActive(true);
-            _ImagenVida[2].SetActive(true);
-        }
-        else if (pLife > 1)
+        if (pLife == 2)
         {
             _ImagenVida[0].SetActive(true);
             _ImagenVida[1].SetActive(true);
             _ImagenVida[2].SetActive(false);
         }
-        else if (pLife > 0)
+        else if (pLife == 1)
         {
             _ImagenVida[0].SetActive(true);
+            _ImagenVida[1].SetActive(false);
+            _ImagenVida[2].SetActive(false);
+        }
+        else if (pLife >= 0)
+        {
+            _ImagenVida[0].SetActive(false);
             _ImagenVida[1].SetActive(false);
             _ImagenVida[2].SetActive(false);
         }
