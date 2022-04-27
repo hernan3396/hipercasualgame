@@ -12,23 +12,21 @@ public class Laser : MonoBehaviour
 
     #region Aiming
     [Header("Aiming")]
-    [SerializeField] private LayerMask _aimMask;
-    private RaycastHit _hitPos;
-    private Ray _mousePos;
-    private Camera _cam;
+    [SerializeField] private LayerMask _aimMask; // ray collides with this
+    private Vector3 _hitPos; // where that ray hits (world space)
+    private Ray _mousePos; // mouse position as a ray
+    private Camera _cam; // main camera
     #endregion
 
     #region ShootingSetup
     [Header("Shooting Setup")]
-    [SerializeField] private Transform _shootingPoint;
-    [SerializeField] private Transform _endPoint;
+    [SerializeField] private Transform _endPoint; // where laser ends, can change to a value but it works flawlessly
     #endregion
 
     private void Start()
     {
         _transform = GetComponent<Transform>();
         _cam = GameManager.GetInstance.GetCamera;
-
 
         GameManager.GetInstance.onGameStart += OnGameStart;
         GameManager.GetInstance.onGamePause += OnGamePause;
@@ -39,44 +37,62 @@ public class Laser : MonoBehaviour
     {
         if (!_canShoot) return;
 
-        _mousePos = _cam.ScreenPointToRay(Input.mousePosition); // aims
-
         if (Input.GetMouseButtonDown(0))
         {
-            // checks for collision
-            if (Physics.Raycast(_mousePos, out RaycastHit hit, Mathf.Infinity, _aimMask))
-                _hitPos = hit;
-
+            Aim();
             Shoot();
         }
     }
 
+    /// <Summary>
+    /// Sets mouse/touch position to world space
+    /// </Summary>
+    private void Aim()
+    {
+        _mousePos = _cam.ScreenPointToRay(Input.mousePosition); // position where you clicked
+
+        // checks for collision
+        if (Physics.Raycast(_mousePos, out RaycastHit hit, Mathf.Infinity, _aimMask))
+            _hitPos = hit.point;
+    }
+
     private void Shoot()
     {
-        CancelInvoke("ClearLaser");
+        CancelInvoke("ClearLaser"); // clears timer so that new laser wont de-spawn faster than desired when spamming
 
-        Vector3 shootingDir = (_hitPos.point - _shootingPoint.position); // calculates shooting direction
-        shootingDir = new Vector3(shootingDir.x, 0, shootingDir.z); // using local space, so we remove Y axis to avoid unwanted rotation
-
+        Vector3 shootingDir = CalculateShotingDir(_hitPos, _transform.position);
         _transform.forward = shootingDir; // rotates character
 
-        Invoke("ClearLaser", _laserData.Duration);
+        Invoke("ClearLaser", _laserData.Duration); // clears laser after some time
+
         if (Physics.Raycast(_transform.position, shootingDir, out RaycastHit hit))
         {
-            if (hit.collider)
-            {
-                _lineRenderer.SetPosition(1, _transform.InverseTransformPoint(hit.point));
+            // si choca actualizar con esta posicion
+            UpdateLaserPos(1, hit.point);
 
-                if (hit.collider.TryGetComponent(out Enemy enemy))
-                {
-                    enemy.TakeDamage(_laserData.Damage, _laserData.KnockbackForce);
-                }
+            if (hit.collider.TryGetComponent(out Enemy enemy))
+            {
+                enemy.TakeDamage(_laserData.Damage, _laserData.KnockbackForce); // make enemy take damage
             }
 
             return;
         }
 
-        _lineRenderer.SetPosition(1, _transform.InverseTransformPoint(_endPoint.position));
+        // sino con la posicion final
+        UpdateLaserPos(1, _endPoint.position);
+    }
+
+    private Vector3 CalculateShotingDir(Vector3 finalPos, Vector3 origin)
+    {
+        Vector3 direction = finalPos - origin; // calculates shooting direction
+        direction = new Vector3(direction.x, 0, direction.z); // using local space, so we remove Y axis to avoid unwanted rotation
+
+        return direction;
+    }
+
+    private void UpdateLaserPos(int index, Vector3 pos)
+    {
+        _lineRenderer.SetPosition(index, _transform.InverseTransformPoint(pos));
     }
 
     private void ClearLaser()
