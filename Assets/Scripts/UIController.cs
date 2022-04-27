@@ -62,6 +62,7 @@ public class UIController : MonoBehaviour
     {
         _titleMenu.SetActive(false);
         _pauseBtn.SetActive(true);
+        _scoreText.gameObject.SetActive(true);
     }
 
     public void PauseGame(bool value)
