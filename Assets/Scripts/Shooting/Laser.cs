@@ -5,6 +5,7 @@ public class Laser : MonoBehaviour
     #region Components
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private LaserData _laserData;
+    private AudioManager _aManager;
     private Transform _transform;
     #endregion
 
@@ -25,8 +26,9 @@ public class Laser : MonoBehaviour
 
     private void Start()
     {
-        _transform = GetComponent<Transform>();
+        _aManager = GameManager.GetInstance.GetAudioManager;
         _cam = GameManager.GetInstance.GetCamera;
+        _transform = GetComponent<Transform>();
 
         GameManager.GetInstance.onGameStart += OnGameStart;
         GameManager.GetInstance.onGamePause += OnGamePause;
@@ -62,6 +64,8 @@ public class Laser : MonoBehaviour
 
         Vector3 shootingDir = CalculateShotingDir(_hitPos, _transform.position);
         _transform.forward = shootingDir; // rotates character
+
+        _aManager.LaserSound(); //sonido laser
 
         Invoke("ClearLaser", _laserData.Duration); // clears laser after some time
 
