@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4ae0fdf0ff1794ba3b3e9a812433b4, type: 3}
   m_Name: SimpleLaser
   m_EditorClassIdentifier: 
-  KnockbackForce: 50
+  KnockbackForce: 100
   Duration: 0.2
   Damage: 1
