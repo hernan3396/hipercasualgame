@@ -36,6 +36,7 @@ public abstract class Enemy : Entity
 
     private void Start()
     {
+
         GameManager.GetInstance.onGamePause += OnGamePause;
         GameManager.GetInstance.onGameOver += OnGameOver;
     }
