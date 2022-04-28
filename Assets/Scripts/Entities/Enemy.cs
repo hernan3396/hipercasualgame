@@ -30,12 +30,13 @@ public abstract class Enemy : Entity
         _rb = GetComponent<Rigidbody>();
         _rb.velocity = Vector3.zero;
 
-        _uiController = GameManager.GetInstance.GetUIController;
-        _playerPos = GameManager.GetInstance.GetPlayerPosition;
     }
 
     private void Start()
     {
+        _uiController = GameManager.GetInstance.GetUIController;
+        _playerPos = GameManager.GetInstance.GetPlayerPosition;
+
         GameManager.GetInstance.onGamePause += OnGamePause;
         GameManager.GetInstance.onGameOver += OnGameOver;
     }
